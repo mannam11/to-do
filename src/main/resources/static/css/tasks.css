@@ -1,0 +1,51 @@
+/* Reset some default margin and padding */
+body, h1, ul, div {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the task container */
+.task-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Adjust as needed for spacing between cards */
+    justify-content: flex-start;
+    margin: 20px; /* Add margin for spacing from the top */
+}
+
+/* Style each task card */
+.task-card {
+    position: relative;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 245px; /* Set a fixed width for each card, adjust as needed */
+}
+
+/* Style the priority indicator */
+.priority {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Style the task content */
+.task-content {
+    align-self: flex-start; /* Align at the top */
+}
+
+/* Style the message when no tasks are available */
+div {
+    text-align: center;
+    color: #555;
+}
+
+.navbar {
+    margin: 8px;
+}

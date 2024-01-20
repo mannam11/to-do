@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Task List</title>
+  <link rel="stylesheet" href="/css/tasks.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div class="navbar" th:replace="~{fragments/navbar :: navbarFragment}"></div>
+
+<!-- Display tasks in cards -->
+<div class="task-container" th:if="${not #lists.isEmpty(tasks)}">
+  <div th:each="task : ${tasks}" class="task-card">
+    <div class="priority" th:text="${task.priority}"></div>
+    <div class="task-content">
+      <h3 th:text="${task.title}"></h3>
+      <p th:text="${task.description}"></p>
+      <p th:text="${task.toBeComplete}"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Display a message when no tasks are available -->
+<div th:if="${#lists.isEmpty(tasks)}">
+  <p>No tasks available.</p>
+</div>
+
+<!-- JavaScript script to toggle color based on priority -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var priorityElements = document.querySelectorAll(".priority");
+
+        priorityElements.forEach(function (element) {
+            var priority = element.textContent.trim();
+            element.style.backgroundColor = getColorForPriority(priority);
+        });
+
+        function getColorForPriority(priority) {
+            switch (priority) {
+                case "LOW":
+                    return "#65B741"; // Green for LOW priority
+                case "MEDIUM":
+                    return "#F8E559"; // Yellow for MEDIUM priority
+                case "HIGH":
+                    return "#FF004D"; // Red for HIGH priority
+                default:
+                    return "#f4f4f4"; // Default color
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

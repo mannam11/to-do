@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>DashBoard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<!-- Navigation Bar Section -->
+<div th:replace="~{fragments/navbar :: navbarFragment}"></div>
+
+<!-- Dashboard Section -->
+<div class="dashboard-container">
+    <!-- Display logged-in user's full name -->
+    <h1>Welcome to Your Todo Dashboard!</h1>
+    <p>This is a simple todo application where you can manage your tasks efficiently.</p>
+</div>
+
+
+</body>
+</html>

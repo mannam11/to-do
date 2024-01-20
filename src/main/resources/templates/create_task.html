@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Task Creation</title>
+    <link rel="stylesheet" href="/css/create_task.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div class="navbar" th:replace="~{fragments/navbar :: navbarFragment}"></div>
+
+<div class="container">
+
+    <h1>Create your task here</h1>
+
+    <!-- Display titleError in the same place in the form -->
+    <span class="error error-inline" th:if="${titleError}" th:text="${titleError}"></span><br><br>
+
+    <!-- Display dateError in the same place in the form -->
+    <span class="error error-inline" th:if="${dateError}" th:text="${dateError}"></span><br><br>
+
+    <!-- Display priorityError in the same place in the form -->
+    <span class="error error-inline" th:if="${priorityError}" th:text="${priorityError}"></span><br><br>
+
+
+    <form method="post" th:action="@{/create}" th:object="${task}">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" th:field="${task.title}"><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" th:field="${task.description}"></textarea><br><br>
+
+        <label for="deadline">Deadline Date:</label>
+        <input type="date" id="deadline" name="toBeComplete" th:field="${task.toBeComplete}"><br><br>
+
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority" th:field="${task.priority}">
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
