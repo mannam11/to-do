@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Task List</title>
+  <link rel="stylesheet" href="/css/tasks.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div class="navbar" th:replace="~{fragments/navbar :: navbarFragment}"></div>
+
+<!-- Display tasks in cards -->
+<div class="task-container" th:if="${not #lists.isEmpty(progress)}">
+  <div th:each="task : ${progress}">
+    <div th:replace="~{fragments/tasks :: taskCard}">
+    </div>
+  </div>
+</div>
+
+<!-- Display a message when no tasks are available -->
+<div th:if="${#lists.isEmpty(progress)}">
+  <p>No tasks available.</p>
+</div>
+<script src="/js/task.js"></script>
+</body>
+</html>

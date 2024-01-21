@@ -2,19 +2,22 @@ package com.todo.remainder.controller;
 
 
 import com.todo.remainder.entity.Task;
+import com.todo.remainder.entity.TaskStatus;
 import com.todo.remainder.service.TaskService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -69,14 +72,47 @@ public class TaskController {
         }
 
         taskService.createTask(task);
-        return "redirect:/tasks";
+        return "redirect:/inprogress";
     }
 
-    @GetMapping("/tasks")
-    public String getTasks(Model model){
-        List<Task> tasks = taskService.findAll();
-        model.addAttribute("tasks", tasks);
-        return "tasks";
+    @GetMapping("/inprogress")
+    public String getTasksInProgress(Model model){
+        List<Task> tasks = taskService.findAllInProgress(TaskStatus.INPROGRESS);
+        model.addAttribute("progress", tasks);
+        return "inprogress";
+    }
+
+    @GetMapping("/completed")
+    public String getCompletedTasks(Model model){
+        List<Task> tasks = taskService.findAllCompleted(TaskStatus.COMPLETED);
+        model.addAttribute("completed", tasks);
+        return "completed";
+    }
+
+    @PostMapping("/{taskId}")
+    public String toggleTaskStatus(@PathVariable int taskId, HttpServletRequest request) {
+        Optional<Task> optionalTask = taskService.findTaskById(taskId);
+
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+
+            if (TaskStatus.COMPLETED.equals(task.getTaskStatus())) {
+                // If the task is completed, mark it as in progress
+                task.setTaskStatus(TaskStatus.INPROGRESS);
+                taskService.save(task);
+
+                return "redirect:/completed";
+
+            } else {
+                // If the task is in progress, mark it as completed
+                task.setTaskStatus(TaskStatus.COMPLETED);
+                taskService.save(task);
+
+                return "redirect:/inprogress";
+            }
+        }
+
+        return "redirect:/error";
     }
 
 }

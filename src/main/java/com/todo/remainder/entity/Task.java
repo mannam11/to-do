@@ -17,7 +17,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int task_id;
+    private int id;
 
     @Column( nullable = false ,name = "user_id")
     private int userId;
@@ -41,5 +41,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(name = "priority")
     private Priority priority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private TaskStatus taskStatus;
 
 }
