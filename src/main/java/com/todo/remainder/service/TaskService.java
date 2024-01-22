@@ -28,13 +28,13 @@ public class TaskService {
         return taskRepository.findByTaskStatus(taskStatus);
     }
 
-    public void markTaskAsCompleted(int taskId) {
-        Optional<Task> optionalTask = taskRepository.findById(taskId);
-        optionalTask.ifPresent(task -> {
-            task.setTaskStatus(TaskStatus.COMPLETED);
-            taskRepository.save(task);
-        });
-    }
+//    public void markTaskAsCompleted(int taskId) {
+//        Optional<Task> optionalTask = taskRepository.findById(taskId);
+//        optionalTask.ifPresent(task -> {
+//            task.setTaskStatus(TaskStatus.COMPLETED);
+//            taskRepository.save(task);
+//        });
+//    }
 
     public Optional<Task> findTaskById(int taskId) {
         return taskRepository.findById(taskId);

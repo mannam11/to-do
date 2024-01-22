@@ -79,6 +79,7 @@ public class TaskController {
     public String getTasksInProgress(Model model){
         List<Task> tasks = taskService.findAllInProgress(TaskStatus.INPROGRESS);
         model.addAttribute("progress", tasks);
+        model.addAttribute("currentPage", "inprogress");
         return "inprogress";
     }
 
@@ -86,11 +87,12 @@ public class TaskController {
     public String getCompletedTasks(Model model){
         List<Task> tasks = taskService.findAllCompleted(TaskStatus.COMPLETED);
         model.addAttribute("completed", tasks);
+        model.addAttribute("currentPage", "completed");
         return "completed";
     }
 
     @PostMapping("/{taskId}")
-    public String toggleTaskStatus(@PathVariable int taskId, HttpServletRequest request) {
+    public String toggleTaskStatus(@PathVariable int taskId) {
         Optional<Task> optionalTask = taskService.findTaskById(taskId);
 
         if (optionalTask.isPresent()) {
@@ -100,19 +102,17 @@ public class TaskController {
                 // If the task is completed, mark it as in progress
                 task.setTaskStatus(TaskStatus.INPROGRESS);
                 taskService.save(task);
-
                 return "redirect:/completed";
-
             } else {
                 // If the task is in progress, mark it as completed
                 task.setTaskStatus(TaskStatus.COMPLETED);
                 taskService.save(task);
-
                 return "redirect:/inprogress";
             }
         }
 
         return "redirect:/error";
     }
+
 
 }

@@ -9,8 +9,8 @@
         <div class="options-menu" style="display: none;">
             <ul>
                 <li>
-                    <form th:action="@{'/' + ${task.id}}" method="post">
-                        <button type="submit" th:text="${task.taskStatus eq 'COMPLETED' ? 'Mark as In Progress' : 'Mark as Completed'}"></button>
+                    <form th:action="@{'/' + ${task.id}}" method="post" onsubmit="return toggleTaskStatus(this)">
+                        <button class="button" type="submit" th:text="${currentPage eq 'completed' ? 'Mark as In Progress' : 'Mark as Completed'}"></button>
                     </form>
                 </li>
                 <!-- Add more options as needed -->
