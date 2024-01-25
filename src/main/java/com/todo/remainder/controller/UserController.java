@@ -3,6 +3,7 @@ package com.todo.remainder.controller;
 import com.todo.remainder.entity.User;
 import com.todo.remainder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService ) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/signup")
@@ -28,14 +32,12 @@ public class UserController {
     @PostMapping("/signup")
     public String signUpAccount(@ModelAttribute User user, Model model){
 
-        if(user.getEmail().trim().isEmpty()){
-            model.addAttribute("error", "Password length should be at least 6");
-            return "signup";
-        }
+        String hashPassword  = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
 
         userService.registerUser(user);
 
-        return "redirect:/dashboard";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -46,20 +48,15 @@ public class UserController {
 
     @PostMapping("/login")
     public String processLogin(@ModelAttribute("user") User user){
-        try {
-            System.out.println("User " + user);
-            User requestedUser = userService.findUser(user.getEmail());
 
-            if(requestedUser != null){
-                System.out.println("Requested user " + requestedUser);
-                return "redirect:/dashboard";
+        User requestedUser = userService.findUser(user.getEmail());
+
+        if(requestedUser != null){
+            if(passwordEncoder.matches(user.getPassword(), requestedUser.getPassword())){
+                return "redirect:/";
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        // Return the logical view name without the leading slash
-        return "login";
+        return "login?error=true";
     }
 
     @GetMapping("/error")

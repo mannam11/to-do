@@ -4,15 +4,10 @@ package com.todo.remainder.controller;
 import com.todo.remainder.entity.Task;
 import com.todo.remainder.entity.TaskStatus;
 import com.todo.remainder.service.TaskService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -91,7 +86,7 @@ public class TaskController {
         return "completed";
     }
 
-    @PostMapping("/{taskId}")
+    @PostMapping("/toggle/{taskId}")
     public String toggleTaskStatus(@PathVariable int taskId) {
         Optional<Task> optionalTask = taskService.findTaskById(taskId);
 
@@ -114,5 +109,24 @@ public class TaskController {
         return "redirect:/error";
     }
 
+    @PostMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable int taskId, @ModelAttribute("currentPage") String currentPage) {
+        Optional<Task> optionalTask = taskService.findTaskById(taskId);
+        System.out.println("Deleting task with ID: " + taskId);
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+            TaskStatus status = task.getTaskStatus();
+            taskService.deleteTask(task);
+
+            if(status.equals(TaskStatus.INPROGRESS)){
+                return "redirect:/inprogress";
+            }else{
+                return "redirect:/completed";
+            }
+
+        }
+
+        return "redirect:/error";
+    }
 
 }

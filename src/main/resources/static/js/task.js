@@ -30,7 +30,7 @@ function toggleTaskStatus(form, event) {
     event.preventDefault();
 
     // Get the button element inside the form
-    var button = form.querySelector('button');
+    var button = form.querySelector('.toggle-button');
 
     // Toggle the button text
     button.innerText = button.innerText === 'Mark as Completed' ? 'Mark as In Progress' : 'Mark as Completed';

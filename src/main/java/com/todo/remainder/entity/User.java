@@ -29,5 +29,4 @@ public class User{
     @Column(name = "password")
     @NotBlank(message = "password should not be empty")
     private String password;
-
 }

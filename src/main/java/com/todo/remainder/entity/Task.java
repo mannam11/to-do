@@ -4,6 +4,7 @@ package com.todo.remainder.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,8 +20,9 @@ public class Task {
     @Column(name = "id")
     private int id;
 
-    @Column( nullable = false ,name = "user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "title")
     @NotBlank(message = "Title can't be empty")

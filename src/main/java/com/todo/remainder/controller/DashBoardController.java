@@ -12,7 +12,7 @@ public class DashBoardController {
 
     private TaskService taskService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/")
     public String getDashboardPage(Model model){
 
         return "dashboard";
