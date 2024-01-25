@@ -62,3 +62,10 @@ div.error {
     text-align: center;
     padding:10px;
 }
+div.logout {
+    display: block;
+    margin-top: 10px;
+    color: #4caf50;
+    text-align: center;
+    padding:10px;
+}

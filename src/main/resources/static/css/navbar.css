@@ -44,3 +44,20 @@
 .user-info p {
     margin-right: 8px; /* Adjust the spacing between "Hello," and the username */
 }
+.navbar form {
+    display: inline-block;
+    margin: 0;
+}
+
+.navbar input[type="submit"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.navbar input[type="submit"]:hover {
+    background-color: #ddd;
+    color: black;
+}

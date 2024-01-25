@@ -5,6 +5,11 @@
     <li><a th:href="@{/inprogress}">Inprogress</a></li>
     <li><a th:href="@{/create}" >Create</a></li>
     <li><a th:href="@{/completed}">Completed</a></li>
+    <li>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout">
+      </form>
+    </li>
   </ul>
 
   <div class="user-info" th:if="${#authorization.expression('isAuthenticated()')}">

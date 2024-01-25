@@ -10,8 +10,11 @@ body, h1, form {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    max-width: 400px; /* Limit maximum width */
+    width: 100%;
     margin: 50px auto;
+    overflow-y: auto; /* Enable vertical scroll if content exceeds height */
+    max-height: 80vh; /* Limit maximum height */
 }
 
 /* Style the form header */
@@ -29,8 +32,10 @@ label {
 
 /* Style the input and textarea fields */
 input[type="text"],
-textarea {
-    width: 100%;
+textarea,
+select,
+input[type="date"] {
+    width: calc(100% - 22px); /* Adjust width to fit container */
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
@@ -46,6 +51,7 @@ input[type="submit"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 20px; /* Increase margin bottom for spacing */
 }
 
 input[type="submit"]:hover {
@@ -56,9 +62,8 @@ input[type="submit"]:hover {
 .error {
     color: #ff0000;
     font-size: 14px;
-    items-align: center;
     display: block;
-    margin-top: 5px; /* Adjusted margin for better spacing */
+    margin: -10px 0 15px 0; /* Adjust top margin */
 }
 
 /* Additional style for better alignment of error messages */
@@ -66,6 +71,7 @@ input[type="submit"]:hover {
     display: inline-block;
     margin-top: 0; /* Remove top margin to align with the input fields */
 }
-.navbar{
-    margin:8px;
+
+.navbar {
+    margin: 8px;
 }
