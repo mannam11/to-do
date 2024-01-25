@@ -1,19 +1,20 @@
-<!-- /src/main/resources/templates/fragments/navbar.html -->
 <nav class="navbar" th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
   <ul>
     <li><a th:href="@{/}" >Home</a></li>
     <li><a th:href="@{/inprogress}">Inprogress</a></li>
     <li><a th:href="@{/create}" >Create</a></li>
     <li><a th:href="@{/completed}">Completed</a></li>
-    <li>
-      <form th:action="@{/logout}" method="post">
+    <li th:if="${#authorization.expression('isAuthenticated()')}">
+      <form th:action="@{/logout}" method="post" class="logout">
         <input type="submit" value="Logout">
       </form>
+    </li>
+    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+      <a th:href="@{/login}">Login</a>
     </li>
   </ul>
 
   <div class="user-info" th:if="${#authorization.expression('isAuthenticated()')}">
     <p>Hello,</p><span th:text="${#authentication.principal.username}"></span>
   </div>
-
 </nav>
