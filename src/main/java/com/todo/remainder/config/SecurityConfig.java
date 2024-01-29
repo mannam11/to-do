@@ -1,6 +1,5 @@
 package com.todo.remainder.config;
 
-import com.todo.remainder.repository.UserRepository;
 import com.todo.remainder.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

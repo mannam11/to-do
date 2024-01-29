@@ -32,11 +32,26 @@ public class UserController {
     @PostMapping("/signup")
     public String signUpAccount(@ModelAttribute User user, Model model){
 
-        String hashPassword  = passwordEncoder.encode(user.getPassword());
+        User requestedUser = userService.findUser(user.getEmail());
+
+        if(requestedUser != null){
+            model.addAttribute("emailExist", "Email already exists");
+            return "signup";
+        }
+
+        if(user.getEmail().trim().length() == 0|| user.getPassword().trim().length() == 0){
+            model.addAttribute("emailOrPasswordEmpty", "Email or Password should not be empty");
+            return "signup";
+        }
+
+        if(user.getPassword().trim().length() < 7){
+            model.addAttribute("passwordLength","Password at least have 7 characters ");
+            return "signup";
+        }
+
+        String hashPassword  = passwordEncoder.encode(user.getPassword().trim());
         user.setPassword(hashPassword);
-
         userService.registerUser(user);
-
         return "redirect:/login";
     }
 

@@ -11,6 +11,18 @@
 <div class="container">
     <h1>Signup</h1>
 
+    <div th:if="${emailExist}" class = "error">
+        <span th:text="${emailExist}"></span>
+    </div>
+
+    <div th:if="${emailOrPasswordEmpty}" class = "error">
+        <span th:text="${emailOrPasswordEmpty}"></span>
+    </div>
+
+    <div th:if="${passwordLength}" class = "error">
+        <span th:text="${passwordLength}"></span>
+    </div>
+
     <form method="post" th:action="@{/signup}" th:object="${user}">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:field="*{firstName}"><br><br>
