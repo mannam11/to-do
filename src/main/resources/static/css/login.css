@@ -12,6 +12,9 @@ body, h1, form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     margin: 50px auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
 /* Style the form header */
@@ -68,4 +71,10 @@ div.logout {
     color: #4caf50;
     text-align: center;
     padding:10px;
+}
+a.login-link {
+    color: blue;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top:20px;
 }
