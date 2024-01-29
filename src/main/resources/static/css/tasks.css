@@ -1,29 +1,25 @@
-/* Reset some default margin and padding */
 body, h1, ul, div {
     margin: 0;
     padding: 0;
 }
 
-/* Style the task container */
 .task-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px; /* Adjust as needed for spacing between cards */
+    gap: 25px;
     justify-content: flex-start;
-    margin: 20px; /* Add margin for spacing from the top */
+    margin: 20px;
 }
 
-/* Style each task card */
 .task-card {
     position: relative;
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 245px; /* Set a fixed width for each card, adjust as needed */
+    width: 245px;
 }
 
-/* Style the priority indicator */
 .priority {
     position: absolute;
     top: 10px;
@@ -42,7 +38,7 @@ body, h1, ul, div {
     width : 24px;
     cursor:pointer;
 }
-/* Style the message when no tasks are available */
+
 div {
     text-align: center;
     color: #555;
@@ -52,10 +48,9 @@ div {
     margin: 8px;
 }
 
-/* Style the options menu */
 .options-menu {
     position: absolute;
-    top: 30px; /* Adjust the top position as needed */
+    top: 30px;
     right: 0;
     border-radius:8px;
     background-color: #fff;
@@ -73,24 +68,20 @@ div {
     margin-bottom: 8px;
 }
 
-/* Style the options menu link */
 .options-menu a {
     text-decoration: none;
     color: #333;
     display: block;
 }
 
-/* Hover effect for task card */
 .task-card:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust shadow on hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover effect for options icon */
 .options-icon:hover {
-    filter: brightness(1.2); /* Adjust brightness on hover */
+    filter: brightness(1.2);
 }
 
-/* Button styles */
 .button {
     background-color: #4CAF50;
     color: white;
