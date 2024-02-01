@@ -34,11 +34,6 @@ public class TaskController {
             return "create_task";
         }
 
-        if (task.getPriority() == null) {
-            model.addAttribute("priorityError", "Priority should be selected");
-            return "create_task";
-        }
-
         if (task.getToBeComplete() != null) {
             try {
                 // Set the time to the end of the day to avoid issues with time components
