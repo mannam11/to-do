@@ -1,3 +1,6 @@
+*{
+    font-family: sans-serif;
+}
 body, h1, form {
     margin: 0;
     padding: 0;

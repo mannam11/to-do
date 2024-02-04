@@ -1,4 +1,7 @@
 /* Dashboard Styles */
+*{
+    font-family: sans-serif;
+}
 .dashboard-container {
     background-color: #f4f4f4;
     padding: 20px;

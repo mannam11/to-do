@@ -1,6 +1,7 @@
 package com.todo.remainder.controller;
 
 import com.todo.remainder.entity.User;
+import com.todo.remainder.service.EmailVerificationService;
 import com.todo.remainder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -17,10 +19,13 @@ public class UserController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailVerificationService emailVerificationService;
+
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, EmailVerificationService emailVerificationService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @GetMapping("/signup")
@@ -52,6 +57,8 @@ public class UserController {
         String hashPassword  = passwordEncoder.encode(user.getPassword().trim());
         user.setPassword(hashPassword);
         userService.registerUser(user);
+
+        emailVerificationService.sendVerificationEmail(user);
         return "redirect:/login";
     }
 
@@ -62,12 +69,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String processLogin(@ModelAttribute("user") User user){
-
+    public String processLogin(@ModelAttribute User user, Model model) {
         User requestedUser = userService.findUser(user.getEmail());
 
-        if(requestedUser != null){
-            if(passwordEncoder.matches(user.getPassword(), requestedUser.getPassword())){
+        if (requestedUser != null) {
+            if (passwordEncoder.matches(user.getPassword(), requestedUser.getPassword())) {
                 return "redirect:/";
             }
         }
@@ -77,6 +83,18 @@ public class UserController {
     @GetMapping("/error")
     public String getErrorPage(){
         return "error";
+    }
+
+    @GetMapping("/verify")
+    public String verifyToken(@RequestParam("token") String token, Model model){
+
+        boolean verified =emailVerificationService.verify(token) ;
+        if(verified){
+            model.addAttribute("tokenVerified","You have been successfully verified");
+            return "/login";
+        }else{
+            return "/error";
+        }
     }
 
 }

@@ -9,10 +9,17 @@
 <body>
 <div class="container">
   <h1>Login Here</h1>
+
+  <div class="note">
+    <p>Note: Verify your email before login</p>
+  </div>
+
   <div th:if="${param.error}" class="error">
-    Invalid username and password.</div>
+    Invalid username and password.
+  </div>
   <div th:if="${param.logout}" class="logout">
-    You have been logged out.</div>
+    You have been logged out.
+  </div>
   <form th:action="@{/login}" method="post">
     <div>
       <input type="text" name="username" placeholder="Username"/>

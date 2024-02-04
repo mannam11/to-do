@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
 
         User user = findUser(username);
 
+        if(user.isVerified() == false && user.getVerificationToken() != null){
+            return null;
+        }
+
         if(user == null){
             return null;
         }

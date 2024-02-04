@@ -1,5 +1,8 @@
 /* Reset some default margin and padding */
-body, h1, form {
+*{
+    font-family: sans-serif;
+}
+body, h1, form , p{
     margin: 0;
     padding: 0;
 }
@@ -21,7 +24,7 @@ body, h1, form {
 h1 {
     text-align: center;
     color: #0B60B0;
-    margin-bottom: 20px; /* Increase spacing below the header */
+    margin-bottom: 10px; /* Increase spacing below the header */
 }
 
 /* Style the form labels */
@@ -58,14 +61,14 @@ input[type="submit"]:hover {
 }
 
 /* Style error message */
-div.error {
+.error, .invalidToken {
     display: block;
     margin-top: 10px;
     color: red;
     text-align: center;
     padding:10px;
 }
-div.logout {
+.logout, .verifiedToken {
     display: block;
     margin-top: 10px;
     color: #4caf50;
@@ -77,4 +80,14 @@ a.login-link {
     font-size: 16px;
     text-decoration: none;
     margin-top:20px;
+}
+.note{
+    background-color:white;
+    color:#FC6736;
+    border-radius:10px;
+    margin-bottom : 10px;
+}
+p{
+   padding:5px;
+   font-size:12px;
 }

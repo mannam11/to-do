@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
     <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -34,13 +35,31 @@
         <input type="email" id="email" name="email" th:field="*{email}"><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" th:field="*{password}"><br><br>
+        <button type="button" id="btn">Generate strong password</button>
+        <div class="password-container">
+            <input type="password" id="password" name="password" th:field="*{password}">
+            <i class="fas fa-eye" id="togglePassword"></i>
+        </div>
 
         <input type="submit" value="Signup">
     </form>
 
     <a href="/login" class="signup-link">Already have an account ? </a>
+    <script src="/js/passwordgenerator.js"></script>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordField = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    });
+</script>
 
 </body>
 </html>
