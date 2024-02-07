@@ -34,12 +34,10 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public List<Task> findAllInProgress(TaskStatus taskStatus){
-        return taskRepository.findByTaskStatus(taskStatus);
-    }
-
-    public List<Task> findAllCompleted(TaskStatus taskStatus){
-        return taskRepository.findByTaskStatus(taskStatus);
+    public List<Task> findByStatus(TaskStatus taskStatus){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUser(authentication.getName());
+        return taskRepository.findByTaskStatusAndUser(taskStatus,user);
     }
 
     public Optional<Task> findTaskById(int taskId) {

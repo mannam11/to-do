@@ -8,15 +8,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
-    private final int length=10;
 
     public void registerUser(User user) {
         userRepository.save(user);
@@ -44,19 +41,5 @@ public class UserService implements UserDetailsService {
                 .username(user.getEmail())
                 .password(user.getPassword())
                 .build();
-    }
-
-    public String generatePassword(){
-        String pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$&*()";
-
-        Random random=new Random();
-        StringBuilder password = new StringBuilder();
-
-        for(int i=1; i<=length; i++){
-            int index = random.nextInt(pattern.length());
-            password.append(pattern.charAt(index));
-        }
-
-        return password.toString();
     }
 }
