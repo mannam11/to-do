@@ -7,7 +7,7 @@ const generatePassword = async () => {
         let response = await fetch(url, {
             method: 'GET',
             headers: {
-                'X-Api-Key': 'rER4yazu3DUBKceXDiqgsg==CwPTdSiFGt9EsmoC'
+                'X-Api-Key': 'your api-key'
             }
         });
 
