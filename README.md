@@ -39,6 +39,8 @@ git clone https://github.com/mannam11/to-do.git
 ```bash
 Install JDK (Recent version)
 ```
+Configure database : 
+
 ```bash
 spring.datasource.url=jdbc:mysql://localhost:3306/your-database-name
 spring.datasource.username=username
@@ -48,6 +50,8 @@ spring.jpa.hibernate.ddl-auto=update
 - You don't to worry about creating the database tables. [spring.jpa.hibernate.ddl-auto=update] , This command will take care of creating tables and relations.
 
 - #### You can use different database as you like other than this
+
+Configure email configuration : 
 
 ```bash
 spring.mail.host=smtp.gmail.com
@@ -59,7 +63,8 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
 ```
 - If you not able see App passwords in your gmail account,create 2-factor authentication and try. 
-- Refer the below document how to create app-password
+
+Refer the below document how to create app-password :
 ```bash
 https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
 ```
