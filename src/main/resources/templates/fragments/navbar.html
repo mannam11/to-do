@@ -1,20 +1,22 @@
 <nav class="navbar" th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <ul>
-    <li><a th:href="@{/}" >Home</a></li>
-    <li><a th:href="@{/inprogress}">Inprogress</a></li>
-    <li><a th:href="@{/create}" >Create</a></li>
-    <li><a th:href="@{/completed}">Completed</a></li>
+    <li><a th:href="@{/}" ><i class="fas fa-home"></i> Home</a></li>
+    <li><a th:href="@{/inprogress}"><i class="fas fa-tasks"></i> Inprogress</a></li>
+    <li><a th:href="@{/create}" ><i class="fas fa-plus"></i> Create</a></li>
+    <li><a th:href="@{/completed}"><i class="fas fa-check-circle"></i> Completed</a></li>
     <li th:if="${#authorization.expression('isAuthenticated()')}" class="logout">
       <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout">
+        <button type="submit" class="btn btn-link"><i class="fas fa-sign-out-alt"></i> Logout</button>
       </form>
     </li>
     <li th:unless="${#authorization.expression('isAuthenticated()')}">
-      <a th:href="@{/login}">Login</a>
+      <a th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> Login</a>
     </li>
   </ul>
 
   <div class="user-info" th:if="${#authorization.expression('isAuthenticated()')}">
+    <i class="fas fa-user"></i>
     <p>Hello,</p><span th:text="${#authentication.principal.username}"></span>
   </div>
 </nav>

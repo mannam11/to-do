@@ -46,7 +46,7 @@ public class TaskController {
 
                 // Check if the parsed date is in the past
                 if (task.getToBeComplete().before(new Date())) {
-                    model.addAttribute("dateError", "Deadline should be in the future");
+                    model.addAttribute("dateError", "Deadline should be valid");
                     model.addAttribute("task", task);
                     return "create_task";
                 }

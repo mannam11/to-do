@@ -1,7 +1,8 @@
 /* Navbar Styles */
-*{
+* {
     font-family: sans-serif;
 }
+
 .navbar {
     position: relative; /* Set the position of the containing element to relative */
     background-color: #333;
@@ -55,7 +56,7 @@
     margin: 0;
 }
 
-.navbar form input[type="submit"] {
+.navbar form button {
     background-color: transparent;
     color: white;
     border: none;
@@ -64,10 +65,15 @@
     display: block; /* Ensure button takes full width */
     width: 100%; /* Make button full width */
     text-align: center; /* Center text */
-    font-size:16px;
 }
 
-.navbar form input[type="submit"]:hover {
+.navbar form button:hover {
     background-color: #ddd;
     color: black;
+}
+.user-info i {
+    margin-right: 8px;
+}
+.logout{
+    margin-top:2px;
 }
