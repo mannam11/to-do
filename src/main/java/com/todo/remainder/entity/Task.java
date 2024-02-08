@@ -39,8 +39,8 @@ public class Task {
     @Temporal(value = TemporalType.DATE)
     private Date toBeComplete;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "priority")
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "priority_id")
     private Priority priority;
 
     @Enumerated(EnumType.STRING)

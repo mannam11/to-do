@@ -3,8 +3,9 @@ package com.todo.remainder.controller;
 
 import com.todo.remainder.entity.Task;
 import com.todo.remainder.entity.TaskStatus;
+import com.todo.remainder.service.PriorityService;
 import com.todo.remainder.service.TaskService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@AllArgsConstructor
 public class TaskController {
 
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    private final PriorityService priorityService;
+
+    @Autowired
+    public TaskController(TaskService taskService, PriorityService priorityService) {
+        this.taskService = taskService;
+        this.priorityService = priorityService;
+    }
 
     @GetMapping("/create")
     public String getTaskCreationPage(Model model){
         model.addAttribute("task", new Task());
+        model.addAttribute("priorities", priorityService.findAll());
         return "create_task";
     }
 

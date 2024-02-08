@@ -36,9 +36,7 @@
         <div class="input-container">
             <label for="priority">Priority:</label>
             <select id="priority" name="priority" th:field="${task.priority}">
-                <option value="LOW">Low</option>
-                <option value="MEDIUM">Medium</option>
-                <option value="HIGH">High</option>
+                <option th:each="priority : ${priorities}" th:value="${priority.id}" th:text="${priority.name}"></option>
             </select>
         </div>
 
