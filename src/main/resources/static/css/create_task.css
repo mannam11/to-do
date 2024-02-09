@@ -65,13 +65,8 @@ input[type="submit"]:hover {
     color: #ff0000;
     font-size: 14px;
     display: block;
-    margin: -10px 0 15px 0; /* Adjust top margin */
-}
-
-/* Additional style for better alignment of error messages */
-.error-inline {
-    display: inline-block;
-    margin-top: 0; /* Remove top margin to align with the input fields */
+    text-align:center;
+    margin: 20px; /* Adjust top margin */
 }
 
 .navbar {

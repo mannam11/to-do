@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,14 @@ public class TaskService {
         }
 
         taskRepository.save(task);
+    }
+
+    public boolean isValidTask(Task task){
+
+        if(task.getTitle() == null || task.getTitle().trim().isEmpty() || task.getToBeComplete().before(new Date())){
+            return false;
+        }
+        return true;
     }
 
     public List<Task> findByStatus(TaskStatus taskStatus){

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,41 +37,51 @@ public class TaskController {
     @PostMapping("/create")
     public String createMyTask(@ModelAttribute Task task, Model model) {
 
-        if (task.getTitle() == null || task.getTitle().trim().isEmpty()) {
-            model.addAttribute("titleError", "Title should not be empty");
+        if(task.getToBeComplete() == null){
+            task.setToBeComplete(new Date());
+        }
+        if(taskService.isValidTask(task)){
+            taskService.createTask(task);
+            return "redirect:/inprogress";
+        }else{
+            model.addAttribute("taskError","Please fill all the fields correctly");
+            model.addAttribute("priorities", priorityService.findAll());
+            return "create_task";
+        }
+    }
+
+    @GetMapping("/edit/{taskId}")
+    public String getEditPage(@PathVariable("taskId") int taskId,Model model){
+        Optional<Task> task = taskService.findTaskById(taskId);
+        if(task.isPresent()){
+            Task targetTask = task.get();
+            model.addAttribute("task",targetTask);
+            model.addAttribute("priorities", priorityService.findAll());
             return "create_task";
         }
 
-        if (task.getToBeComplete() != null) {
-            try {
-                // Set the time to the end of the day to avoid issues with time components
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(task.getToBeComplete());
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 59);
-                calendar.set(Calendar.SECOND, 59);
-                task.setToBeComplete(calendar.getTime());
-
-                // Check if the parsed date is in the past
-                if (task.getToBeComplete().before(new Date())) {
-                    model.addAttribute("dateError", "Deadline should be valid");
-                    model.addAttribute("task", task);
-                    return "create_task";
-                }
-            } catch (Exception e) {
-                // Handle invalid date format or other exceptions
-                model.addAttribute("dateError", "Invalid date");
-                model.addAttribute("task", task);
-                return "create_task";
-            }
-        } else {
-            // If the date is empty, set today's date
-            task.setToBeComplete(new Date());
-        }
-
-        taskService.createTask(task);
-        return "redirect:/inprogress";
+        return "redirect:/error";
     }
+
+    @PostMapping("/edit/{taskId}")
+    public String updateTask(@PathVariable("taskId") int taskId, @ModelAttribute Task updatedTask, Model model) {
+        Optional<Task> existingTaskOptional = taskService.findTaskById(taskId);
+        if (existingTaskOptional.isPresent()) {
+            Task existingTask = existingTaskOptional.get();
+            existingTask.setTitle(updatedTask.getTitle());
+            existingTask.setDescription(updatedTask.getDescription());
+            existingTask.setToBeComplete(updatedTask.getToBeComplete());
+            existingTask.setPriority(updatedTask.getPriority());
+
+            taskService.save(existingTask);
+            return "redirect:/inprogress";
+        } else {
+            // Handle case where task with given ID is not found
+            model.addAttribute("error", "Task not found");
+            return "error"; // You need to have an error page configured
+        }
+    }
+
 
     @GetMapping("/inprogress")
     public String getTasksInProgress(Model model){
