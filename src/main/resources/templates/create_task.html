@@ -15,22 +15,24 @@
 
     <h1>Create your task here</h1>
 
-    <form method="post" th:action="@{/create}" th:object="${task}">
+    <div th:if="${taskError}">
+        <div th:text="${taskError}" class="error"></div>
+    </div>
+
+    <form method="post" th:action="${task.id} ? @{/edit/{taskId}(taskId=${task.id})} : @{/create}" th:object="${task}" id="create_task">
         <div class="input-container">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" th:field="${task.title}" required>
-            <div class="error" th:if="${titleError}" th:text="${titleError}"></div> <!-- Modify the error message here -->
         </div>
 
         <div class="input-container">
             <label for="description">Description:</label>
-            <textarea id="description" name="description" th:field="${task.description}" maxlength="100"></textarea> <!-- Add maxlength attribute -->
+            <textarea id="description" name="description" th:field="${task.description}" maxlength="50"></textarea> <!-- Add maxlength attribute -->
         </div>
 
         <div class="input-container">
             <label for="deadline">Deadline Date:</label>
             <input type="date" id="deadline" name="toBeComplete" th:field="${task.toBeComplete}">
-            <div class="error" th:if="${dateError}" th:text="${dateError}"></div> <!-- Modify the error message here -->
         </div>
 
         <div class="input-container">
@@ -44,20 +46,7 @@
     </form>
 </div>
 
-<!-- JavaScript to limit the number of words in textarea -->
-<script>
-    var textarea = document.getElementById("description");
-    var maxWords = 100; // Change this to your desired word limit
-
-    textarea.addEventListener("input", function() {
-        var text = this.value;
-        var words = text.trim().split(/\s+/);
-
-        if (words.length > maxWords) {
-            this.value = words.slice(0, maxWords).join(" ");
-        }
-    });
-</script>
+<script src="/js/create_task.js"></script>
 
 </body>
 </html>

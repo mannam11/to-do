@@ -36,10 +36,9 @@ public class Task {
 
     @Column(name = "deadline")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(value = TemporalType.DATE)
     private Date toBeComplete;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "priority_id")
     private Priority priority;
 

@@ -17,10 +17,10 @@ body, h1, ul, div {
 .task-card {
     position: relative;
     background-color: #f4f4f4;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 245px;
+    width: 235px;
     transition: border 0.3s, transform 0.3s;
 }
 
