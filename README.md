@@ -11,13 +11,19 @@ With a clean and intuitive user interface, our application allows you to create,
 #### User login & signup
 - user authentication 
 - Login & Logout functionality
-#### Create tasks
+#### Create task
 - create title
 - description
 - Due date
 - Level of priority( LOW, MEDIUM, HIGH )
 
-#### Delete tasks
+#### Update task
+- title
+- decription
+- due date of task
+- priority
+
+#### Delete task
 - Delete unwanted tasks
 
 #### Progress Marking
@@ -50,6 +56,13 @@ spring.jpa.hibernate.ddl-auto=update
 - You don't to worry about creating the database tables. [spring.jpa.hibernate.ddl-auto=update] , This command will take care of creating tables and relations.
 
 - #### You can use different database as you like other than this
+
+Create priorities table through this query: 
+
+```bash
+insert into priorities(name)
+value('LOW'), ('MEDIUM'), ('HIGH');
+```
 
 Configure email configuration : 
 
