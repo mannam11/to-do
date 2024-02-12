@@ -4,7 +4,6 @@ import com.todo.remainder.entity.User;
 import com.todo.remainder.service.EmailVerificationService;
 import com.todo.remainder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +16,11 @@ public class UserController {
 
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
-
     private final EmailVerificationService emailVerificationService;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, EmailVerificationService emailVerificationService) {
+    public UserController(UserService userService, EmailVerificationService emailVerificationService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
         this.emailVerificationService = emailVerificationService;
     }
 
@@ -54,8 +50,6 @@ public class UserController {
             return "signup";
         }
 
-        String hashPassword  = passwordEncoder.encode(user.getPassword().trim());
-        user.setPassword(hashPassword);
         userService.registerUser(user);
 
         emailVerificationService.sendVerificationEmail(user);
@@ -66,18 +60,6 @@ public class UserController {
     public String getLoginPage(Model model){
         model.addAttribute("user", new User());
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String processLogin(@ModelAttribute User user, Model model) {
-        User requestedUser = userService.findUser(user.getEmail());
-
-        if (requestedUser != null) {
-            if (passwordEncoder.matches(user.getPassword(), requestedUser.getPassword())) {
-                return "redirect:/";
-            }
-        }
-        return "login?error=true";
     }
 
     @GetMapping("/error")
