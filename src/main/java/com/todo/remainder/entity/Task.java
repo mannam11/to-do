@@ -7,6 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -36,7 +37,7 @@ public class Task {
 
     @Column(name = "deadline")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date toBeComplete;
+    private LocalDate toBeComplete;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "priority_id")

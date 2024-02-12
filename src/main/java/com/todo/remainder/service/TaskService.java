@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class TaskService {
 
     public boolean isValidTask(Task task){
 
-        if(task.getTitle() == null || task.getTitle().trim().isEmpty() || task.getToBeComplete().before(new Date())){
+        if(task.getTitle() == null || task.getTitle().trim().isEmpty() || task.getToBeComplete().isBefore(LocalDate.now())){
             return false;
         }
         return true;
