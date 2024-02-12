@@ -6,12 +6,10 @@ import com.todo.remainder.entity.TaskStatus;
 import com.todo.remainder.service.PriorityService;
 import com.todo.remainder.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +38,7 @@ public class TaskController {
     public String createMyTask(@ModelAttribute Task task, Model model) {
 
         if(task.getToBeComplete() == null){
-            task.setToBeComplete(LocalDate.now());
+            task.setToBeComplete(new Date());
         }
         if(taskService.isValidTask(task)){
             taskService.createTask(task);
