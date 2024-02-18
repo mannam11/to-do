@@ -2,9 +2,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <ul>
     <li><a th:href="@{/}" ><i class="fas fa-home"></i> Home</a></li>
-    <li><a th:href="@{/inprogress}"><i class="fas fa-tasks"></i> Inprogress</a></li>
+    <li><a th:href="@{/inprogress}"><i class="fas fa-tasks"></i> Inprogress <span th:text="${inprogressCount}"></span> </a></li>
     <li><a th:href="@{/create}" ><i class="fas fa-plus"></i> Create</a></li>
-    <li><a th:href="@{/completed}"><i class="fas fa-check-circle"></i> Completed</a></li>
+    <li><a th:href="@{/completed}"><i class="fas fa-check-circle"></i> Completed <span th:text="${completedCount}"></span> </a></li>
     <li th:if="${#authorization.expression('isAuthenticated()')}" class="logout">
       <form th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-link"><i class="fas fa-sign-out-alt"></i> Logout</button>
