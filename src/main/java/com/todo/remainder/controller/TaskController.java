@@ -86,6 +86,7 @@ public class TaskController {
     @GetMapping("/inprogress")
     public String getTasksInProgress(Model model){
         List<Task> tasks = taskService.findByStatus(TaskStatus.INPROGRESS);
+        model.addAttribute("inprogressCount", tasks.size());
         model.addAttribute("progress", tasks);
         model.addAttribute("currentPage", "inprogress");
         return "inprogress";
@@ -94,6 +95,7 @@ public class TaskController {
     @GetMapping("/completed")
     public String getCompletedTasks(Model model){
         List<Task> tasks = taskService.findByStatus(TaskStatus.COMPLETED);
+        model.addAttribute("completedCount", tasks.size());
         model.addAttribute("completed", tasks);
         model.addAttribute("currentPage", "completed");
         return "completed";
